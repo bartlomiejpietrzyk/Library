@@ -84,5 +84,29 @@ public class Library {
             return this.availableBooks;
         }
     }
+    Map<Integer, Book> removeBook(Integer id) throws IllegalArgumentException {
+        if (!this.allBooks.containsKey(id)) {
+            throw new IllegalArgumentException("Book with specified ID doesn't exist.");
+        } else if (this.lentBooks.containsKey(id)) {
+            throw new IllegalArgumentException("Can't remove, book is lent");
+        } else {
+            Book book = allBooks.get(id);
+            this.allBooks.remove(id);
+            this.lentBooks.remove(id);
+            this.availableBooks.remove(id);
+            System.out.println(new StringBuilder()
+                    .append("Book ")
+                    .append("ID: ")
+                    .append(id)
+                    .append(" \"")
+                    .append(book.getTitle())
+                    .append("\" successfully removed from library!")
+                    .append("\n--------------\n")
+                    .append("List of available books: \n")
+                    .append("--------------")
+                    .toString());
+            return this.allBooks;
+        }
+    }
 
 }
