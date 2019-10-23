@@ -121,4 +121,22 @@ public class Library {
                 .toString();
     }
 
+    void listAllBooks() {
+        System.out.println("---------------------\nList of All books:\n---------------------");
+        this.allBooks.forEach((integer, book) -> System.out.println(book));
+        System.out.println("---------------------\n");
+    }
+
+    void listAvailableBooks() {
+        System.out.println("---------------------\nList of All available books:\n---------------------");
+        this.availableBooks.forEach((integer, book) -> System.out.println(book));
+        System.out.println("---------------------\n");
+    }
+
+    void listAllLentBooks() {
+        System.out.println("---------------------\nList of All lent books:\n---------------------");
+        this.lentBooks.forEach((integer, book) -> System.out.println(book));
+        System.out.println("---------------------\n");
+    }
+
 }
