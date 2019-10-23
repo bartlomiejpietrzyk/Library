@@ -109,4 +109,16 @@ public class Library {
         }
     }
 
+    String countBooksInLibrary() {
+        return new StringBuilder()
+                .append("--------------\nAll books in library: ")
+                .append(this.allBooks.size())
+                .append("\n--------------\nAvailable books in library: ")
+                .append(this.availableBooks.size())
+                .append("\n--------------\nLent books in library: ")
+                .append(this.lentBooks.size())
+                .append("\n--------------")
+                .toString();
+    }
+
 }
