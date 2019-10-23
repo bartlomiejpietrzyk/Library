@@ -9,7 +9,9 @@ public class Library {
     private Map<Integer, Book> availableBooks = new LinkedHashMap<>();
 
     Map<Integer, Book> addBookToLibrary(Book book) throws IllegalArgumentException {
-        if (!allBooks.containsKey(book)) {
+        if (allBooks.containsKey(book)) {
+            throw new IllegalArgumentException("Book with specified ID already exist.");
+        } else {
             this.allBooks.put(book.getId(), book);
             this.availableBooks.put(book.getId(), book);
             System.out.println(new StringBuilder()
@@ -27,13 +29,15 @@ public class Library {
                     .append("--------------")
                     .toString());
             return this.allBooks;
-        } else {
-            throw new IllegalArgumentException("Book with specified ID already exist.");
         }
     }
 
     Map<Integer, Book> lendBook(Integer id, String name) throws IllegalArgumentException {
-        if (this.availableBooks.containsKey(id)) {
+        if (!this.availableBooks.containsKey(id)) {
+            throw new IllegalArgumentException("Book with specified ID is already lent!");
+        } else if (!this.allBooks.containsKey(id)) {
+            throw new IllegalArgumentException("Book with specified ID does not exist!");
+        } else {
             Book book = this.allBooks.get(id);
             book.setLentBy(name);
             this.lentBooks.put(book.getId(), book);
@@ -52,8 +56,33 @@ public class Library {
                     .append("--------------")
                     .toString());
             return this.lentBooks;
-        } else {
-            throw new IllegalArgumentException("Book is already lent.");
         }
     }
+
+    Map<Integer, Book> returnBook(Integer id) throws IllegalArgumentException {
+        if (this.availableBooks.containsKey(id)) {
+            throw new IllegalArgumentException("Book with specified ID is available!");
+        } else if (!this.allBooks.containsKey(id)) {
+            throw new IllegalArgumentException("Book with specified ID doesn't exist.");
+        } else {
+            Book book = allBooks.get(id);
+            book.setLentBy("");
+            this.lentBooks.remove(id);
+            this.availableBooks.put(book.getId(), book);
+            System.out.println(new StringBuilder()
+                    .append("Book: ")
+                    .append(book.getTitle())
+                    .append(" written by ")
+                    .append(book.getAuthor())
+                    .append(" in ")
+                    .append(book.getYear())
+                    .append(" returned to library!\n")
+                    .append("\n--------------\n")
+                    .append("List of available books: \n")
+                    .append("--------------")
+                    .toString());
+            return this.availableBooks;
+        }
+    }
+
 }
