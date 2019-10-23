@@ -31,4 +31,29 @@ public class Library {
             throw new IllegalArgumentException("Book with specified ID already exist.");
         }
     }
+
+    Map<Integer, Book> lendBook(Integer id, String name) throws IllegalArgumentException {
+        if (this.availableBooks.containsKey(id)) {
+            Book book = this.allBooks.get(id);
+            book.setLentBy(name);
+            this.lentBooks.put(book.getId(), book);
+            this.availableBooks.remove(id);
+            System.out.println(new StringBuilder()
+                    .append("Book: ")
+                    .append(book.getTitle())
+                    .append(" written by ")
+                    .append(book.getAuthor())
+                    .append(" in ")
+                    .append(book.getYear())
+                    .append(" lent from library by ")
+                    .append(name)
+                    .append("\n--------------\n")
+                    .append("List of lent books: \n")
+                    .append("--------------")
+                    .toString());
+            return this.lentBooks;
+        } else {
+            throw new IllegalArgumentException("Book is already lent.");
+        }
+    }
 }
