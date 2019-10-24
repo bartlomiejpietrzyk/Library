@@ -3,7 +3,7 @@ package pl.bartlomiejpietrzyk.library;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Library {
+public class  Library {
     private Map<Integer, Book> allBooks = new LinkedHashMap<>();
     private Map<Integer, Book> lentBooks = new LinkedHashMap<>();
     private Map<Integer, Book> availableBooks = new LinkedHashMap<>();
@@ -15,6 +15,7 @@ public class Library {
             this.allBooks.put(book.getId(), book);
             this.availableBooks.put(book.getId(), book);
             System.out.println(new StringBuilder()
+                    .append("\n---------------------\n")
                     .append("New Book: ID: ")
                     .append(book.getId())
                     .append(", Title: \"")
@@ -24,10 +25,9 @@ public class Library {
                     .append(" in ")
                     .append(book.getYear())
                     .append(" added to library!\n")
-                    .append("--------------\n")
-                    .append("List of all books: \n")
-                    .append("--------------")
+                    .append("---------------------")
                     .toString());
+            listAllBooks();
             return this.allBooks;
         }
     }
@@ -43,6 +43,7 @@ public class Library {
             this.lentBooks.put(book.getId(), book);
             this.availableBooks.remove(id);
             System.out.println(new StringBuilder()
+                    .append("\n---------------------\n")
                     .append("Book: ")
                     .append(book.getTitle())
                     .append(" written by ")
@@ -51,10 +52,9 @@ public class Library {
                     .append(book.getYear())
                     .append(" lent from library by ")
                     .append(name)
-                    .append("\n--------------\n")
-                    .append("List of lent books: \n")
-                    .append("--------------")
+                    .append("\n---------------------")
                     .toString());
+            listAllLentBooks();
             return this.lentBooks;
         }
     }
@@ -70,17 +70,17 @@ public class Library {
             this.lentBooks.remove(id);
             this.availableBooks.put(book.getId(), book);
             System.out.println(new StringBuilder()
+                    .append("\n---------------------\n")
                     .append("Book: ")
                     .append(book.getTitle())
                     .append(" written by ")
                     .append(book.getAuthor())
                     .append(" in ")
                     .append(book.getYear())
-                    .append(" returned to library!\n")
-                    .append("\n--------------\n")
-                    .append("List of available books: \n")
-                    .append("--------------")
+                    .append(" returned to library!")
+                    .append("\n---------------------")
                     .toString());
+            listAvailableBooks();
             return this.availableBooks;
         }
     }
@@ -95,48 +95,59 @@ public class Library {
             this.lentBooks.remove(id);
             this.availableBooks.remove(id);
             System.out.println(new StringBuilder()
+                    .append("\n---------------------\n")
                     .append("Book ")
                     .append("ID: ")
                     .append(id)
                     .append(" \"")
                     .append(book.getTitle())
                     .append("\" successfully removed from library!")
-                    .append("\n--------------\n")
-                    .append("List of available books: \n")
-                    .append("--------------")
+                    .append("\n---------------------")
                     .toString());
+            listAllBooks();
             return this.allBooks;
         }
     }
 
     String countBooksInLibrary() {
         return new StringBuilder()
-                .append("--------------\nAll books in library: ")
+                .append("---------------------\nAll books in library: ")
                 .append(this.allBooks.size())
-                .append("\n--------------\nAvailable books in library: ")
+                .append("\n---------------------\nAvailable books in library: ")
                 .append(this.availableBooks.size())
-                .append("\n--------------\nLent books in library: ")
+                .append("\n---------------------\nLent books in library: ")
                 .append(this.lentBooks.size())
-                .append("\n--------------")
+                .append("\n---------------------")
                 .toString();
     }
 
     void listAllBooks() {
         System.out.println("---------------------\nList of All books:\n---------------------");
         this.allBooks.forEach((integer, book) -> System.out.println(book));
-        System.out.println("---------------------\n");
+        System.out.println("---------------------");
     }
 
     void listAvailableBooks() {
         System.out.println("---------------------\nList of All available books:\n---------------------");
         this.availableBooks.forEach((integer, book) -> System.out.println(book));
-        System.out.println("---------------------\n");
+        System.out.println("---------------------");
     }
 
     void listAllLentBooks() {
         System.out.println("---------------------\nList of All lent books:\n---------------------");
         this.lentBooks.forEach((integer, book) -> System.out.println(book));
-        System.out.println("---------------------\n");
+        System.out.println("---------------------");
     }
 
+    public Map<Integer, Book> getAllBooks() {
+        return allBooks;
+    }
+
+    public Map<Integer, Book> getLentBooks() {
+        return lentBooks;
+    }
+
+    public Map<Integer, Book> getAvailableBooks() {
+        return availableBooks;
+    }
 }

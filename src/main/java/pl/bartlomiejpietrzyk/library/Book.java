@@ -1,6 +1,5 @@
 package pl.bartlomiejpietrzyk.library;
 
-import static pl.bartlomiejpietrzyk.library.Main.library;
 
 public class Book {
     private static int count = 0;
@@ -38,8 +37,6 @@ public class Book {
 
         Book build() {
             Book book = new Book(this);
-            library.addBookToLibrary(book)
-                    .forEach((integer, book1) -> System.out.println(book1));
             return book;
         }
     }
